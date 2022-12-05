@@ -5,8 +5,8 @@ Trying to provide a very simple way to call commands from java, it will reduce y
 ---  
 # Features  
 CliAgent4Java temporarily contains 2 features:  
-1. RuntimeAgent: Call almost all scripts which can run on bash/terminal; it is implemented based on Java Runtime.  
-2. PythonAgent: Call python function without creating new processes, only with package jep.  
+1. **RuntimeAgent**: Call almost all scripts which can run on bash/terminal; it is implemented based on Java Runtime.  
+2. **PythonAgent**: Call python function without creating new processes, only with package jep.  
 
 ---  
 # How to run CliAgent4Java  
