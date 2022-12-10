@@ -2,9 +2,6 @@ package CliAgent;
 import jep.SharedInterpreter;
 import jep.Interpreter;
 public class PythonAgent {
-	public static void main(String[] args) {
-		System.out.println("wait");
-	}
 	String execPath = "./";
 	String module = "";
 	String func = "";
@@ -15,14 +12,23 @@ public class PythonAgent {
 		this.func = func;
 		this.init();
 	}
+	public PythonAgent(String module, String func){
+		this.execPath = "./";
+		this.module = module;
+		this.func = func;
+		this.init();
+	}
 	private void init(){
 		if (this.module.length() == 0 || this.func.length() == 0){
 			System.err.println("You should have a module and function name!");
 		}
 		this.interp.exec("import sys");
-		this.interp.exec("sys.path.append('" + this.execPath + "')");
+		this.interp.exec("sys.path.insert(0,'" + this.execPath + "')");
 		this.interp.exec("import " + this.module);
 		this.interp.exec("func_java_pythonAgentFunc = " + this.module + "." + this.func);
+	}
+	public void close(){
+		this.interp.close();
 	}
 	public void setExecPath(String p){
 		this.execPath = p;
@@ -32,6 +38,9 @@ public class PythonAgent {
 	}
 	public void setFunc(String f){
 		this.func = f;
+	}
+	public void exec(String line){
+		this.interp.exec(line);
 	}
 	private Object _runFunc(Object[] pars){
 		return this.interp.invoke("func_java_pythonAgentFunc", pars);

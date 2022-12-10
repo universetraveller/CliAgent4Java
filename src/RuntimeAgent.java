@@ -11,6 +11,18 @@ public class RuntimeAgent {
 	public void setCommand(String cmd){
 		command = cmd;
 	}
+	public RuntimeAgent(){
+		this.command = "";
+	}
+	public RuntimeAgent(String cmd){
+		this.command = cmd;
+	}
+	public RuntimeAgent(String[] cmd){
+		this.command = "";
+		for(String temp : cmd){
+			this.command += temp + " ";
+		}
+	}
 	private String _run(String[] cmd){
 		Process proc;
 		StringBuilder ResultBuilder = new StringBuilder();
@@ -48,17 +60,22 @@ public class RuntimeAgent {
 		return result;
 	}
 	public String run(){
-		return this._run(new String[0]);
+		// Alias, could be implemented as faster way
+		return this.run(new String[0]);
 	}
 	/*public static String run(String[] cmd){
 		return this._run(cmd);
 	}*/
 	public String run(String[] pars){
-		String[] cmd = command.split(" ");
-		String[] excmd = new String[cmd.length + pars.length];
-		System.arraycopy(cmd, 0, excmd, 0, cmd.length);
-		System.arraycopy(pars, 0, excmd, cmd.length, pars.length);
-		return this._run(excmd);
+		if(this.command.trim().isEmpty()){
+			return this._run(pars);
+		}else{
+			String[] cmd = command.split(" ");
+			String[] excmd = new String[cmd.length + pars.length];
+			System.arraycopy(cmd, 0, excmd, 0, cmd.length);
+			System.arraycopy(pars, 0, excmd, cmd.length, pars.length);
+			return this._run(excmd);
+		}
 	}
 }
 
