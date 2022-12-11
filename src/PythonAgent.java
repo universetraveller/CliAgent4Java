@@ -46,7 +46,7 @@ public class PythonAgent {
 		return this.interp.invoke("func_java_pythonAgentFunc", pars);
 	}
 	private Object _noParameter(){
-		return this.interp.getValue("func_java_pythonAgentFunc");
+		return this.interp.getValue("func_java_pythonAgentFunc()");
 	}
 	public Object execute(Object[] pars){
 		return this._runFunc(pars);

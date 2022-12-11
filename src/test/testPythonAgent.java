@@ -9,13 +9,13 @@ public class testPythonAgent{
 	public static void test2(){
 		PythonAgent PA = new PythonAgent("test", "returnValue");
 		Object res = PA.execute();
-		assert Integer.parseInt(String.valueOf(res)) == 1;
+		assert (long)res == 1;
 		PA.close();
 	}
 	public static void test3(){
 		PythonAgent PA = new PythonAgent("test", "getValue");
 		Object res = PA.execute(new Object[]{1,2,3});
-		assert Integer.parseInt(String.valueOf(res)) == 2;
+		assert (long)res == 2;
 		PA.close();
 	}
 	public static void test4(){

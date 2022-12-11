@@ -18,6 +18,7 @@ CliAgent4Java temporarily contains 2 features:
 - #### Menber variables:  
 1. **String command**: the command(s) you will call by RuntimeAgent.  
 2. **boolean ERROR**: Whether to get error output of the command(s), it will get the standard error message; default is true.  
+3. **RuntimeAgent(String command/String[] commands)**: Constructor.  
 - #### Member functions:  
 1. **setError(boolean)**: to set the member variable ERROR.  
 2. **setCommand(String)**: to set the command(s) to be called.  
@@ -30,10 +31,10 @@ import CliAgent.RuntimeAgent;
 public class test{
 	public static void main(String[] args){
 		RuntimeAgent rt = new RuntimeAgent();
-		String res = rt.run(new String{"python3", "test.py", "a", "b"});  //empty command
+		String res = rt.run(new String[]{"python3", "test.py", "a", "b"});  //empty command
 		System.out.println(res);
     rt.setCommand("python3 test.py");  //commands
-    res = rt.run(new String{"a", "b"});
+    res = rt.run(new String[]{"a", "b"});
 		System.out.println(res);
 	}
 }
@@ -44,10 +45,13 @@ public class test{
 2. **String module**: the module contains needed functions, such as the example of execPath, the module should be 'testfolder'.  
 3. **String func**: the function name you want to call, it would be renamed as 'func_java_pythonAgentFunc', so do not write a function with same name, unless you edit the source code of PythonAgent.  
 4. **jep.Interpreter interp**: the inside interpreter of python (Embedded Cython in Java), it control all the executions of the python code.  
+5. **PythonAgent((String execPath,) String module, String func)**: Constructor of PythonAgent, default execPath is './'.  
 - #### Member functions:  
 1. **setExecPath/setModule/setFunc**, parameter: String, set the member variable of the agent.  
 2. **Object execute**, parameter: Object[] or None, execute the function and get the return value with/without parameters. The Object[] parameter could contain various types such as String, int.  
 3. **String getString**, parameter: Object[] or None, execute the function, and convert the return value as String type.  
+4. **void exec(String)**: execute string type script at Embedded Cython jep.  
+5. **void close()**: close a jep interpreter, you must keep only an interpreter at single thread, so you should close it before creating a new one.  
 - #### Example  
 ```
 import CliAgent.PythonAgent;
